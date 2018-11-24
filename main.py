@@ -23,22 +23,38 @@ def time(distance):
 
 def correct_time(distance):
     time_value = time(distance)
-    if time_value>60:
-        hour = int(time_value / 60)
-        time_text = str((time_value / 60))
-        minute = str(60 * int(time_text[time_text.find('.')+1:]))
-        return print("Вы доберетесь за", hour, "часов", minute[:2], "минут")
-    else:
-        time_text = str((time_value / 60))
-        minute = str(60 * int(time_text[time_text.find('.')+1:]))
-        return print("Вы доберетесь за",minute[:2], "минут")
+    hour = int(time_value / 60)
+    time_text = str((time_value / 60))
+    minute = str(60 * int(time_text[time_text.find('.')+1:]))
+    return hour, int(minute[:2])
 
+
+def correct_case(distance):
+    hour, minute_ = correct_time(distance)
+    minute = int(str(minute_)[1])
+    if minute == 2 or minute == 3 or minute == 4:
+        minute_case='минуты'
+    elif minute == 1:
+        minute_case='минуту'
+    else:
+        minute_case='минут'
+    if hour==0:
+        return print("Вы доберетесь за", minute_, minute_case)
+    else:
+        if hour == 2 or hour == 3 or hour == 4:
+            hour_case = 'часа'
+        elif hour == 1:
+            hour_case = 'час'
+        else:
+            hour_case = 'часов'
+        return print("Вы доберетесь за", hour, hour_case, minute_, minute_case)
 
 
 def main():
     speed(traffic_mark())
     print(speed(traffic_mark()))
-    correct_time(100)
+    correct_case(100)
+
 
 
 main()
